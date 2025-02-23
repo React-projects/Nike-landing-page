@@ -1,9 +1,13 @@
-import React from 'react'
+import {React, useState} from 'react'
 import Button from '../Components/Button'
 import arrowRight from '../assets/icons/arrow-right.svg'
-import { statistics } from '../constants'
+import heroImage from '../assets/images/big-shoe1.png'
+import { shoes, statistics } from '../constants'
+import ShoesCard from '../Components/ShoesCard'
 
 const Hero = () => {
+
+    const [bigShoeImage, setBigShoeImage] = useState(heroImage)
   return (
     <section  id='home' className='w-full  flex xl:flex-row flex-col justify-center min-h-screen gap-10 max-container '>
         <div className='relative xl:w-2/5 flex flex-col justify-center items-start w-full max-xl:padding-x pt-28'>
@@ -18,7 +22,7 @@ const Hero = () => {
         <div className='flex justify-start items-start flex-wrap mt-20 gap-16'>
             {statistics.map((stat) => (
                 <div key={stat.label}>
-                    <p className='text-4xl font-palanquin font-bold'>{stat.value}</p>
+                    <p className='text-4xl font-palanquin font-bold text-bassal-color'>{stat.value}</p>
                     <p className='leading-7 font-montserrat text-slate-gray'>{stat.label}</p>
                 </div>
             ))}
@@ -27,9 +31,23 @@ const Hero = () => {
 
 
         </div>
+        <div className='relative flex-1 flex justify-center items-center xl:min-h-screen max-xl:py-40 bg-primary bg-hero bg-cover bg-center'>
+        <img src={bigShoeImage} alt="hero" className='hero-image object-contain  relative z-10' width={610} height={500}  />
+        <div className='flex sm:gap-6 absolute -bottom-[5%] sm:left-[15%] max-sm:px-6 '>
+            {shoes.map((shoe) => (
+                <div key={shoe.name} >
+                    <ShoesCard imagUrl={shoe}  ChangeBigShoeImage= {(shoe)=>{
+                        setBigShoeImage(shoe)
+                    }} bigShoeImage={bigShoeImage}/>
+
+                </div>
+            ))}
+        </div>
+       </div>
 
     </section>
   )
+
 }
 
 export default Hero;
